@@ -5,6 +5,7 @@ import Login from './Components/Login/login'
 import Dashboard from './Components/dashboardLanding/dashboardLanding'
 import OrderForm from './Components/orderForm/orderForm'
 import AddInventory from './Components/addInventoryForm/addInventoryForm'
+import router from './router'
 import AuthCheck from './Components/AuthCheck'
 
 
