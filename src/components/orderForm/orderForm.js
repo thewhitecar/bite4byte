@@ -2,46 +2,64 @@ import React, { Component } from "react"
 import {Link} from 'react-router-dom'
 import axios from "axios";
 import './orderForm.css'
-const plus = require('../../images/plus.png')
+import { connect } from "react-redux";
+import OrderFormItem from '../OrderFormItem'
 
-export default class OrderForm extends Component {
+class OrderForm extends Component {
     constructor(props) {
       super(props);
       this.state = {
-          inventory: null,
+          inventory: [],
           cartItems: []
       };
     }
 
-//currently id 1 for testing purposes
 
-    componentDidMount(){
-        axios.get('/api/inventory/1').then(results => {
-            this.setState({
-                inventory: results.data.inventory
+    componentDidUpdate(prevProps) {
+        if(prevProps.user.id !== this.props.user.id) {
+            axios.get(`/api/inventory/${this.props.user.pantry_id}`).then(results => {
+                let inventory = results.data.inventory.map( item => {return {...item, orderCount: 0}})
+                this.setState({
+                    inventory
+                })
             })
-            console.log(this.state.inventory)
+        }
+    }
+
+    updateItemCount = (itemPantryLinkId, newCount) => {
+        let newInventory = this.state.inventory.map(inventory => {
+            if(inventory.item_pantry_link_idp === itemPantryLinkId) inventory.orderCount = newCount 
+            return inventory
+        })
+        this.setState({
+            inventory: newInventory
         })
     }
 
-    // addItems(itemID, quantity){
-
-    // }
-
-
+    createOrder() {
+        let {pantry_id} = this.props.user
+        let orderItems = this.state.inventory.filter( item => item.orderCount !== 0)
+        let itemInventoryLinks = orderItems.map( item => {
+            return {
+                itemInventoryId: item.item_pantry_link_idp,
+                newQuantity: item.quantity - item.orderCount
+            }
+        })
+        axios.put(`/api/inventory/${pantry_id}`, {itemInventoryLinks, familyId: 1}).then(response => {
+            this.props.history.push('/home')
+        }).catch(err => console.log('Err!'))
+    }
 
     render(){
-        let inventoryList;
-        if(this.state.inventory){inventoryList = this.state.inventory.map( pantryItem => {
-            return(
-            <div className="pantry-item-container">
-                <li>{pantryItem.item_name}</li>
-                <h3>Quantity: {pantryItem.quantity}</h3>
-                <img src={plus}/>
-            </div>
-                )
+        let inventoryList = this.state.inventory.map( (pantryItem, i) => {
+        return(
+                <OrderFormItem
+                key={pantryItem.item_pantry_link_idp}
+                pantryItem={pantryItem}
+                updateItemCount={this.updateItemCount}
+                ></OrderFormItem>
+            )
         })
-    }
 
         return(
             <div className="dash-window">
@@ -67,8 +85,17 @@ export default class OrderForm extends Component {
                                 Back to Dashboard
                             </Link>
                         </button>
-                    </div>
+                </div>
+                    <button onClick={() => this.createOrder()}>Create Order</button>
             </div>
         )
     }
 }
+
+function mapStateToProps(state) {
+    return {
+        user: state.user ? state.user : {}
+    }
+}
+
+export default connect(mapStateToProps)(OrderForm)

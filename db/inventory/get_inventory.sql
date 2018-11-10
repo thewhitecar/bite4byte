@@ -5,3 +5,4 @@ ip.quantity from item i
 join item_pantry_link ip 
 on i.id = ip.item_id
 where ip.pantry_id = ${id}
+and ip.quantity > 0;
