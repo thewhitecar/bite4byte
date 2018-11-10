@@ -66,11 +66,6 @@ module.exports = {
 
     },
     updatePantryInventory(req, res) {
-        //Look of incoming itemInventory object 
-        // {
-        //     itemInventoryId: value,
-        //     newQuantity: value
-        // }
         let db = req.app.get('db')
         let {itemInventoryLinks, familyId} = req.body
         let {pantryId} = req.params
