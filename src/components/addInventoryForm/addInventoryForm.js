@@ -1,15 +1,13 @@
 import React, { Component } from "react"
+import {connect} from 'react-redux'
+import {getItems} from '../../redux/reducer'
 
-export default class AddInventory extends Component {
+class AddInventory extends Component {
     constructor(props) {
       super(props);
       this.state = {
-          inventory : [],
           item: ''
       };
-    }
-    componentDidMount(){
-        this.props.getItems
     }
     
     handleItemInput = (e) => {
@@ -36,3 +34,10 @@ export default class AddInventory extends Component {
         )
     }
 }
+
+function mapStateToProps(state){
+    return {
+        inventory: state.items
+    }
+}
+export default connect(mapStateToProps, {getItems}) (AddInventory)
