@@ -46,6 +46,7 @@ class Login extends Component {
 }
 
   render(){
+    let {username} = this.state
     return (
       <div>
         <div>
