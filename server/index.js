@@ -19,6 +19,7 @@ app.use(session({
 
 massive(CONNECTION_STRING).then( dbInstance => {
     app.set('db', dbInstance)
+    console.log('db connected')
     familyStatusFalse.start()
 })
 
