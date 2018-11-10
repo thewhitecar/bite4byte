@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import {Link} from 'react-router-dom'
 import axios from "axios";
 import './orderForm.css'
 const plus = require('../../images/plus.png')
@@ -45,6 +46,7 @@ export default class OrderForm extends Component {
         return(
             <div className="dash-window">
                 <h1 style={{marginBottom: "50px"}}>Create Order</h1>
+                
                 <div className="order-form-container">
                     <div id="left-side">
                         <div>
@@ -55,10 +57,17 @@ export default class OrderForm extends Component {
                         </ul>
                     </div>
                     <div id="right-side">
+                   
                         <p>Order Cart</p>
                     </div>
                 </div>
-
+                <div className="button-container">
+                        <button className="buttons">
+                            <Link  className="buttons" to='/home'>
+                                Back to Dashboard
+                            </Link>
+                        </button>
+                    </div>
             </div>
         )
     }
