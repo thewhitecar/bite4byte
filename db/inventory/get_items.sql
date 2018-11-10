@@ -1,2 +1,2 @@
 select * from item
-where item_name like ${searchTerm}
+where item_name ilike ${searchTerm}

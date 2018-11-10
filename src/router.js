@@ -1,7 +1,12 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
+<<<<<<< HEAD
 import Login from './Components/login/login'
+=======
+
+import Login from './Components/Login/login'
+>>>>>>> master
 import Dashboard from './Components/dashboardLanding/dashboardLanding'
 import OrderForm from './Components/orderForm/orderForm'
 import AddInventory from './Components/addInventoryForm/addInventoryForm'
