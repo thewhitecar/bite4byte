@@ -2,6 +2,8 @@
     background-color: #FAFAFA;
     width: 100vw;
     height: 100vh;
+    display: flex;
+    flex-direction: row;
 }
 
 .left-side-nav{
@@ -11,10 +13,21 @@
     position: absolute;
 }
 
-/* .left-side-nav{
-
-} */
-
 .right-side{
+    margin: auto auto;
+    height: 100%;
+}
 
+.pantry-item-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.pantry-item-container li{
+    margin-right: 10px;
+}
+
+.pantry-item-container img{
+    height: 20px;
 }
