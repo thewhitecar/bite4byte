@@ -16,6 +16,10 @@ class Dashboard extends Component {
       if(!prevProps.user && this.props.user){this.props.getInventory(this.props.user.pantry_id)}
     }
 
+    componentDidMount(){
+        if(this.props.user){this.props.getInventory(this.props.user.pantry_id)}
+    }
+
     render() {
 
         let familyList;

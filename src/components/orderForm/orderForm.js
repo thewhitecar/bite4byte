@@ -3,26 +3,41 @@ import axios from "axios";
 import './orderForm.css'
 import { connect } from "react-redux";
 import OrderFormItem from '../OrderFormItem'
+import {getInventory} from '../../redux/reducer'
 
 class OrderForm extends Component {
     constructor(props) {
       super(props);
       this.state = {
           inventory: [],
-          cartItems: []
+          cartItems: [],
+          selectedFamily: 1
       };
     }
 
+    componentDidMount(){
+        if(this.props.user){
+            console.log(11111)
+            this.props.getInventory(this.props.user.pantry_id)
+            this.getInventory()
+        }
+    }
 
     componentDidUpdate(prevProps) {
         if(prevProps.user.id !== this.props.user.id) {
-            axios.get(`/api/inventory/${this.props.user.pantry_id}`).then(results => {
-                let inventory = results.data.inventory.map( item => {return {...item, orderCount: 0}})
-                this.setState({
-                    inventory
-                })
-            })
+            console.log(22222)
+            this.props.getInventory(this.props.user.pantry_id)
+            this.getInventory()
         }
+    }
+
+    getInventory = () => {
+        axios.get(`/api/inventory/${this.props.user.pantry_id}`).then(results => {
+            let inventory = results.data.inventory.map( item => {return {...item, orderCount: 0}})
+            this.setState({
+                inventory
+            })
+        })
     }
 
     updateItemCount = (itemPantryLinkId, newCount) => {
@@ -37,6 +52,8 @@ class OrderForm extends Component {
 
     createOrder() {
         let {pantry_id} = this.props.user
+        let {selectedFamily} = this.state
+        // console.log(selectedFamily )
         let orderItems = this.state.inventory.filter( item => item.orderCount !== 0)
         let itemInventoryLinks = orderItems.map( item => {
             return {
@@ -44,10 +61,17 @@ class OrderForm extends Component {
                 newQuantity: item.quantity - item.orderCount
             }
         })
-        axios.put(`/api/inventory/${pantry_id}`, {itemInventoryLinks, familyId: 1}).then(response => {
+        axios.put(`/api/inventory/${pantry_id}`, {itemInventoryLinks, familyId: selectedFamily }).then(response => {
             this.props.history.push('/home')
         }).catch(err => console.log('Err!'))
     }
+
+    handleFamilyChange = (e) => {
+        console.log(11111)
+        this.setState({
+          selectedFamily: e.target.value
+        })
+      }
 
     render(){
         let inventoryList = this.state.inventory.map( (pantryItem, i) => {
@@ -60,11 +84,24 @@ class OrderForm extends Component {
             )
         })
 
+        let familyMap;
+        console.log(this.props)
+
+        if(this.props.families){familyMap = this.props.families.map(e => {
+            return <option value={`${e.family_id}`}>{`${e.family_name}`}</option>;
+        })}
+
         return(
             <div className="dash-window">
                 <h1 style={{marginBottom: "50px"}}>Create Order</h1>
                 <div className="order-form-container">
                     <div id="left-side">
+                        <h2>Select Family</h2>
+                        <select onChange={() => this.handleFamilyChange}>
+                            {familyMap}
+                        </select>
+
+
                         <div>
                             <p>Current Inventory</p>
                         </div>
@@ -81,8 +118,9 @@ class OrderForm extends Component {
 
 function mapStateToProps(state) {
     return {
-        user: state.user ? state.user : {}
+        user: state.user ? state.user : {},
+        families: state.families
     }
 }
 
-export default connect(mapStateToProps)(OrderForm)
+export default connect(mapStateToProps, { getInventory })(OrderForm)
