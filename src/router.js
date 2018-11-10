@@ -1,10 +1,10 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-import Login from './components/login/login.js'
-import Dashboard from './components/dashboardLanding/dashboardLanding.js'
-import OrderForm from './components/orderForm/orderForm.js'
-import AddInventory from './components/addInventoryForm/addInventoryForm.js'
+import Login from './Components/login/login'
+import Dashboard from './Components/dashboardLanding/dashboardLanding'
+import OrderForm from './Components/orderForm/orderForm'
+import AddInventory from './Components/addInventoryForm/addInventoryForm'
 
 export default (
 
