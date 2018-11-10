@@ -1,43 +1,37 @@
 import React, { Component } from "react"
-import {connect} from 'react-redux'
-import {getItems} from '../../redux/reducer'
+import axios from "axios"
 
 class AddInventory extends Component {
     constructor(props) {
       super(props);
       this.state = {
-          item: ''
+          itemSearch: '',
+          searchResults: []
       };
     }
     
-    handleItemInput = (e) => {
+    handleItemSearch = (e) => {
         this.setState({
-            item: e.target.value
+            itemSearch: e.target.value
         })
     }
 
-    handleInventorySubmit = () => {
-
+    handleSearchSubmit = () => {
+        axios.get(`/api/inventory?searchTerm=${this.state.itemSearch}`).then(results => {
+            console.log(results.data)
+        })
     }
 
-
     render(){
-        let {item} = this.state
+        let {itemSearch} = this.state
         return(
         <div>
             <h1>ADD INVENTORY</h1>
-            <form onSubmit={this.handleInventorySubmit}>
-                <p>Item Name</p>
-                <input type='submit text' autoFocus='true' onChange={this.handleItemInput} value={item}></input>
-            </form>
+            <input value={itemSearch} onChange={this.handleItemSearch}/>
+            <button onClick={this.handleSearchSubmit}>Search</button>
         </div>
         )
     }
 }
 
-function mapStateToProps(state){
-    return {
-        inventory: state.items
-    }
-}
-export default connect(mapStateToProps, {getItems}) (AddInventory)
+export default AddInventory
