@@ -1,0 +1,22 @@
+.login-parent{
+    margin-top: 10%;
+}
+
+.login-parent img{
+    height: 20vh;
+    width: auto;
+}
+
+.login-submit-button{
+    border: none;
+    margin-top: 20px;
+    padding: 5px 15px;
+    color: white;
+    background-color: #6bb9f0;
+    font-size: 20px;
+}
+
+.login-parent input{
+    padding: 5px 15px;
+    font-size: 20px;
+}
