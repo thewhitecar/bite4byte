@@ -1,0 +1,20 @@
+
+
+.buttons-container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  box-sizing: border-box;
+  margin-top: 50px
+}
+.buttons {
+  background-color: #6bb9f0;
+  /* border: none; */
+  color: white;
+  padding: 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  box-sizing: border-box
+}

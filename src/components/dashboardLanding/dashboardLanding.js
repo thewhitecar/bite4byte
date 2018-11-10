@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import {Link} from 'react-router-dom'
 import {getInventory} from '../../redux/reducer'
 import './dashboard.css'
 
@@ -17,7 +18,6 @@ class Dashboard extends Component {
     }
 
     render() {
-
         let familyList;
         if(this.props.families)familyList = this.props.families.map(familyName => {
             let colorcode;
@@ -41,7 +41,7 @@ class Dashboard extends Component {
 
 
         return (
-
+            
             <div className="dash-window">
                 <div className="left-side-nav">
                     <h1>Families</h1>
@@ -51,6 +51,18 @@ class Dashboard extends Component {
                 </div>
 
                 <div className="right-side">
+                    <div className="button-container">
+                        <button className="buttons">
+                            <Link  className="buttons" to='/add'>
+                                Add Inventory
+                            </Link>
+                        </button>
+                        <button className="buttons">
+                            <Link className="buttons"to='/order'>
+                                Create Order
+                            </Link>
+                        </button>
+                    </div>
                     <h1>Current Inventory</h1>
                     <ul>
                         {currentInventory}
@@ -58,7 +70,7 @@ class Dashboard extends Component {
                 </div>
 
             </div>
-        )
+            )
         }
     }
       
