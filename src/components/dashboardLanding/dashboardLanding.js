@@ -11,13 +11,13 @@ export default class Dashboard extends Component {
       };
     }
   
-    // componentDidMount() {
-    //   axios.get("/api/inventory/1").then(response => {
-    //     this.setState({
-
-    //     });
-    //   });
-    // }
+    componentDidMount(pantryId) {
+      axios.get(`/api/inventory/${pantryId}`).then(response => {
+        this.setState({
+            inventory: response.data
+        });
+      })
+    }
 
     
   
@@ -37,10 +37,11 @@ export default class Dashboard extends Component {
 
                 <div className="right-side">
                     <h1>Current Inventory</h1>
+                    {this.state.inventory}
                 </div>
 
             </div>
-        )
+            )
         }
     }
       
