@@ -55,7 +55,24 @@ module.exports = {
         })
 
     },
-    updateInventoryQuantity(req, res) {
-
+    updatePantryInventory(req, res) {
+        //Look of incoming itemInventory object 
+        // {
+        //     itemInventoryId: value,
+        //     newQuantity: value
+        // }
+        let db = req.app.get('db')
+        let {itemInventoryLinks, familyId} = req.body
+        let {pantryId} = req.params
+        let promises = []
+        itemInventoryLinks.forEach( obj => {
+            promises.push(db.inventory.update_quantity_by_pantry_id({id: obj.itemInventoryId, quantity: obj.newQuantity, itemId: obj.itemId}))
+        })
+        promises.push(db.family.update_family_status({familyId}))
+        Promise.all(promises).then( values => {
+            res.sendStatus(200)
+        }).catch(reason => {
+            res.status(500).send('One or more of your updates didnt go through')
+        })
     }
 }
