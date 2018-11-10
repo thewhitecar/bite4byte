@@ -1,6 +1,12 @@
 module.exports = {
     getItems(req, res) {
-
+        let {searchTerm} = req.query; 
+        searchTerm = searchTerm ? `${searchTerm}%` : ''
+        let db = req.app.get('db')
+        console.log(searchTerm)
+        db.inventory.get_items({searchTerm}).then(dbRes => {
+            res.status(200).send(dbRes)
+        }).catch(err => res.status(200).send(err)) 
     }, 
     createItems(req, res) {
 
