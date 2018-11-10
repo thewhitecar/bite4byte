@@ -18,12 +18,15 @@ class AddInventory extends Component {
 
     handleSearchSubmit = () => {
         axios.get(`/api/inventory?searchTerm=${this.state.itemSearch}`).then(results => {
-            console.log(results.data)
+            this.setState({searchResults: results.data})
         })
     }
 
     render(){
-        let {itemSearch} = this.state
+        let {itemSearch, searchResults} = this.state
+        if(searchResults.length) {
+            
+        }
         return(
         <div>
             <h1>ADD INVENTORY</h1>
