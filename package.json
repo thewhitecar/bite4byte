@@ -25,5 +25,13 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "main": "server/index.js",
+  "nodemonConfig": {
+    "ext": "js,sql",
+    "ignore": [
+      "src/*",
+      "public/*"
+    ]
+  }
 }
