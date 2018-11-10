@@ -8,6 +8,10 @@ export default class AddInventory extends Component {
           item: ''
       };
     }
+    componentDidMount(){
+        this.props.getItems
+    }
+    
     handleItemInput = (e) => {
         this.setState({
             item: e.target.value
