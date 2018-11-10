@@ -21,6 +21,7 @@ massive(CONNECTION_STRING).then( dbInstance => {
 
 //Login endpoints
 app.post('/api/login', ac.loginCoordinator)
+app.get('/api/getCoordinator', ac.getCurrentCoord)
 
 //Inventory routes
 app.get('/api/inventory', ic.getItems)

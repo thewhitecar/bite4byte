@@ -6,13 +6,14 @@ import { login } from '../../redux/reducer';
 
 
 class Login extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       username: '',
       password: ''
     }
   }
+  
   handleUsernameInput = (e) => {
     this.setState({
       username: e.target.value
@@ -29,15 +30,18 @@ class Login extends Component {
     e.preventDefault();
     let { username, password } = this.state;
     let loginInfo = { username, password };
+    console.log(username, password)
     axios.post('/api/login', loginInfo).then(result => {
       this.props.login(result.data)
+      console.log(result.data)
+      this.props.history.push('/home')
+      this.setState({
+          username: "",
+          password: ""
+      })
     }).catch(error => {
         console.log('Error from Login.js => handleLoginSubmit', error);
         ToastStore.error("ID / Password incorrect.", 4000, 'toast-error')
-    })
-    this.setState({
-        username: "",
-        password: ""
     })
 }
 
@@ -48,13 +52,14 @@ class Login extends Component {
           Login: 
           <form onSubmit={this.handleLoginSubmit}>
             <p>Username</p>
-            <input type='submit text' autoFocus='true' onChange={this.handleUsernameInput} value={this.state.username}></input>
+            <input type='submit text' autoFocus='true' onChange={this.handleUsernameInput} value={username}></input>
             <p>Password</p>
             <input type='password' onChange={this.handlePasswordInput} value={this.state.password}></input>
+            <br />
+          <button>Submit</button>
           </form>
         </div>
         <div>
-          <button type='submit' form='form'>Submit</button>
         </div>
         <ToastContainer store={ToastStore} position={ToastContainer.POSITION.BOTTOM_RIGHT} />
       </div>

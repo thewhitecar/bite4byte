@@ -11,8 +11,17 @@ module.exports = {
             if(coord.username) {
                 req.session.user = coord
                 res.status(200).send(req.session.user)
+            } else {
+                res.status(404).send("User and Password combination not found")
             }
         })
 
-    }
+    },
+    getCurrentCoord: (req, res) => {
+        res.status(200).send(req.session.user)
+    },
+    logout: (req, res) => {
+        req.session.destroy()
+        res.status(200).send({})
+    } 
 }
