@@ -37,7 +37,7 @@ class Dashboard extends Component {
                 </div>
             )})}
 
-        if(this.props.user){setTimeout(this.props.getInventory(this.props.user.pantry_id), 5000)}
+        // if(this.props.user){setTimeout(this.props.getInventory(this.props.user.pantry_id), 5000)}
 
 
         return (
