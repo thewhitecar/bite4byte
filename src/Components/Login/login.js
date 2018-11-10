@@ -53,7 +53,7 @@ class Login extends Component {
           Login: 
           <form onSubmit={this.handleLoginSubmit}>
             <p>Username</p>
-            <input type='submit text' autoFocus='true' onChange={this.handleUsernameInput} value={username}></input>
+            <input type='submit text' autoFocus='true' onChange={this.handleUsernameInput} value={this.state.username}></input>
             <p>Password</p>
             <input type='password' onChange={this.handlePasswordInput} value={this.state.password}></input>
             <br />
