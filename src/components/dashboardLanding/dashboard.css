@@ -1,0 +1,20 @@
+.dash-window{
+    background-color: #FAFAFA;
+    width: 100vw;
+    height: 100vh;
+}
+
+.left-side-nav{
+    background-color: #6bb9f0;
+    width: 25%;
+    height: 100%;
+    position: absolute;
+}
+
+/* .left-side-nav{
+
+} */
+
+.right-side{
+
+}

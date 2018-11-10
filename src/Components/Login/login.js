@@ -1,4 +1,9 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react';
+import axios from 'axios';
+import { connect } from 'react-redux';
+import { ToastContainer, ToastStore } from 'react-toasts';
+import { login } from '../../redux/reducer';
+
 
 class Login extends Component {
   constructor(props) {
@@ -20,12 +25,23 @@ class Login extends Component {
     })
   }
 
-  handleLoginSubmit = () => {
-
-  }
+  handleLoginSubmit = (e) => {
+    e.preventDefault();
+    let { username, password } = this.state;
+    let loginInfo = { username, password };
+    axios.post('/api/login', loginInfo).then(result => {
+      this.props.login(result.data)
+    }).catch(error => {
+        console.log('Error from Login.js => handleLoginSubmit', error);
+        ToastStore.error("ID / Password incorrect.", 4000, 'toast-error')
+    })
+    this.setState({
+        username: "",
+        password: ""
+    })
+}
 
   render(){
-    let {username, password} =  this.state
     return (
       <div>
         <div>
@@ -40,9 +56,16 @@ class Login extends Component {
         <div>
           <button type='submit' form='form'>Submit</button>
         </div>
+        <ToastContainer store={ToastStore} position={ToastContainer.POSITION.BOTTOM_RIGHT} />
       </div>
     )
   }
 }
 
-export default Login
+const mapStateToProps = state => {
+  return {
+      user: state.user
+  }
+}
+
+export default connect(mapStateToProps, { login })(Login);

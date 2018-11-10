@@ -1,19 +1,20 @@
-import React, { Component } from "react"
+import React, { Component } from "react";
+import axios from 'axios';
+import './dashboard.css'
 
 export default class Dashboard extends Component {
     constructor(props) {
       super(props);
       this.state = {
           inventory : [],
-          familyList: [],
+          familyList: []
       };
     }
   
     // componentDidMount() {
-    //   axios.get("/api/gearCategoryView").then(response => {
+    //   axios.get("/api/inventory/1").then(response => {
     //     this.setState({
-    //       data: response.data,
-    //       dataMax: response.data.length
+
     //     });
     //   });
     // }
@@ -28,7 +29,15 @@ export default class Dashboard extends Component {
         // })
 
         return (
-            <div className="left-side-nav">
+            <div className="dash-window">
+                <div className="left-side-nav">
+                    <h1>Families</h1>
+                    {/* {familyList} */}
+                </div>
+
+                <div className="right-side">
+                    <h1>Current Inventory</h1>
+                </div>
 
             </div>
         )
@@ -43,3 +52,6 @@ export default class Dashboard extends Component {
 //   };
   
 //   export default connect( mapStateToProps, { logOut } )( Dashboard )
+
+
+//send pantry ID

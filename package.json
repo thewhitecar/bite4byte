@@ -4,8 +4,20 @@
   "private": true,
   "proxy": "http://localhost:3005",
   "dependencies": {
+<<<<<<< HEAD
     "axios": "^0.18.0",
     "bcrypt": "^3.0.2",
+=======
+<<<<<<< HEAD
+    "axios": "^0.18.0",
+=======
+    "bcrypt": "^3.0.2",
+    "axios": "^0.18.0",
+    "react-redux": "^5.1.0",
+    "redux": "^4.0.1",
+    "redux-promise-middleware": "^5.1.1",
+>>>>>>> master
+>>>>>>> master
     "body-parser": "^1.18.3",
     "connect": "^3.6.6",
     "dotenv": "^6.1.0",
@@ -17,9 +29,20 @@
     "react-redux": "^5.1.0",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
+<<<<<<< HEAD
     "react-scripts": "2.1.1",
     "redux": "^4.0.1",
     "redux-promise-middleware": "^5.1.1"
+=======
+<<<<<<< HEAD
+    "react-scripts": "2.1.1",
+    "react-toasts": "^2.0.14",
+    "redux": "^4.0.1",
+    "redux-promise-middleware": "^5.1.1"
+=======
+    "react-scripts": "2.1.1"
+>>>>>>> master
+>>>>>>> master
   },
   "scripts": {
     "start": "react-scripts start",
