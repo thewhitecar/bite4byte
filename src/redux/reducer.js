@@ -1,5 +1,3 @@
-import axios from 'axios'
-
 export const LOGIN = 'LOGIN'
 export const LOGIN_FULFILLED = 'LOGIN_FULFILLED'
 export const LOGOUT = 'LOGOUT'
