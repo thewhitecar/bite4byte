@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-import Login from './Components/Login/login.js'
+import Login from './Components/Login/login'
 import Dashboard from './Components/dashboardLanding/dashboardLanding.js'
 import OrderForm from './Components/orderForm/orderForm.js'
 import AddInventory from './Components/addInventoryForm/addInventoryForm.js'
