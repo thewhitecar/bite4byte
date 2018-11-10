@@ -4,6 +4,8 @@ const massive = require('massive')
 const session = require('express-session')
 const ic = require('./controllers/inventoryController.js')
 const ac = require('./controllers/authController.js')
+const CronJob = require('cron').CronJob
+const cronJobs = require('./Cron/Cron')
 require('dotenv').config()
 const {SERVER_PORT, CONNECTION_STRING, SESSION_SECRET} = process.env
 
@@ -17,7 +19,15 @@ app.use(session({
 
 massive(CONNECTION_STRING).then( dbInstance => {
     app.set('db', dbInstance)
+    familyStatusFalse.start()
 })
+
+//Cron jobs 
+const familyStatusFalse = new CronJob('0 30 1 * * 1', () => {
+    const db = app.get('db')
+    if(db) cronJobs.setFamilyStatusToFalse(db)
+})
+
 
 //Login endpoints
 app.post('/api/login', ac.loginCoordinator)
