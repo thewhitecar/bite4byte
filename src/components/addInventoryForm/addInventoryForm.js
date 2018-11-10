@@ -2,6 +2,8 @@ import React, { Component } from "react"
 import axios from "axios"
 import {connect} from 'react-redux'
 import {getInventory} from '../../redux/reducer'
+import {Link} from 'react-router-dom'
+import './addInventoryForm.css'
 
 class AddInventory extends Component {
     constructor(props) {
@@ -43,8 +45,19 @@ class AddInventory extends Component {
         this.setState({selectedItems})
     }
 
+    addToInventory = () => {
+        let promises = []
+        this.state.selectedItems.forEach(e => {
+            promises.push(axios.post(`/api/inventory?itemId=${e.id}&quantity=${e.quantity}&pantryId=${this.props.user.pantry_id}&itemName=${e.item_name}`))
+        })
+        Promise.all(promises).then(e => {
+           this.props.history.push('/home')
+        })
+    }
+
 
     render(){
+        console.log(this.state.selectedItems)
         let {itemSearch, searchResults} = this.state
         let results = searchResults.map(e => {
             return (
@@ -76,7 +89,16 @@ class AddInventory extends Component {
                 <h4>Items To Be Added</h4>
                 {selectedItems}
             </div>
-            <button>Add Invenvtory</button>
+            <button onClick={this.addToInventory}>Add Invenvtory</button>
+            <div class='add-container'>
+                <div className="button-container">
+                    <button className="buttons">
+                        <Link className="buttons" to='/home'>
+                                    Back to Dashboard
+                        </Link>
+                    </button>
+                </div>
+            </div>
         </div>
         )
     }
