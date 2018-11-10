@@ -17,7 +17,6 @@ app.use(session({
 
 massive(CONNECTION_STRING).then( dbInstance => {
     app.set('db', dbInstance)
-    console.log('db connected')
 })
 
 //Login endpoints
@@ -30,7 +29,7 @@ app.post('/api/inventory', ic.createItems)
 
 //pantry specific 
 app.get('/api/inventory/:pantryId', ic.getInventory)
-app.put('/api/inventory/:pantryId', ic.updateInventoryQuantity)
+app.put('/api/inventory/:pantryId', ic.updatePantryInventory)
 
 app.listen(SERVER_PORT, () => {
     console.log(`Listening on port ${SERVER_PORT}`)

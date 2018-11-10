@@ -1,0 +1,33 @@
+.order-form-container{
+    border: 2px solid rgba(128, 128, 128, 0.605);
+    width: 75vw;
+    height: 75vh;
+    margin: auto auto;
+    display: flex;
+    flex-direction: row;
+}
+
+#left-side{
+    width: 50%;
+    height: 100%;
+    border-right: 2px solid rgba(128, 128, 128, 0.605);
+}
+
+#right-side{
+    width: 50%;
+    height: 100%;
+}
+
+.pantry-item-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.pantry-item-container li{
+    margin-right: 10px;
+}
+
+.pantry-item-container img{
+    height: 20px;
+}
