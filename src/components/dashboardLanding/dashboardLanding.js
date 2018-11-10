@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import axios from 'axios';
+import { connect } from "react-redux";
+import {getInventory} from '../../redux/reducer'
 import './dashboard.css'
 
-export default class Dashboard extends Component {
+class Dashboard extends Component {
     constructor(props) {
       super(props);
       this.state = {
@@ -11,32 +12,48 @@ export default class Dashboard extends Component {
       };
     }
   
-    // componentDidMount() {
-    //   axios.get("/api/inventory/1").then(response => {
-    //     this.setState({
+    componentDidUpdate(prevProps){
+      if(!prevProps.user && this.props.user){this.props.getInventory(this.props.user.pantry_id)}
+    }
 
-    //     });
-    //   });
-    // }
-
-    
-  
 
     render() {
 
-        // let familyList = this.state.familyList.map(familyName => {
-        //     <li>{familyName}</li>
-        // })
+        let familyList;
+        if(this.props.families)familyList = this.props.families.map(familyName => {
+            return(
+            <li>{familyName.family_name}</li>
+            )
+        })
+
+
+        console.log(this.props.families)
+    
+        let currentInventory;
+        if(this.props.inventory){currentInventory = this.props.inventory.map(items => {
+            return(
+                <div className="pantry-item-container">
+                    <li>{items.item_name}</li>
+                    <h3>Quantity: {items.quantity}</h3>
+                </div>
+            )})}
+
 
         return (
+
             <div className="dash-window">
                 <div className="left-side-nav">
                     <h1>Families</h1>
-                    {/* {familyList} */}
+                    <ul>
+                        {familyList}
+                    </ul>
                 </div>
 
                 <div className="right-side">
                     <h1>Current Inventory</h1>
+                    <ul>
+                        {currentInventory}
+                    </ul>
                 </div>
 
             </div>
@@ -45,13 +62,12 @@ export default class Dashboard extends Component {
     }
       
   
-//   let mapStateToProps = state => {
-//     return {
-
-//     };
-//   };
+  let mapStateToProps = state => {
+    return {
+        user: state.user,
+        inventory: state.inventory,
+        families: state.families
+    };
+  };
   
-//   export default connect( mapStateToProps, { logOut } )( Dashboard )
-
-
-//send pantry ID
+  export default connect( mapStateToProps, { getInventory } )( Dashboard )
