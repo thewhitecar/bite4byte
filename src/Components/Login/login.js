@@ -3,6 +3,9 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { ToastContainer, ToastStore } from 'react-toasts';
 import { login } from '../../redux/reducer';
+import './login.css'
+
+const logo = require('../../images/groceries.jpg')
 
 
 class Login extends Component {
@@ -48,16 +51,17 @@ class Login extends Component {
   render(){
     let {username} = this.state
     return (
-      <div>
-        <div>
-          Login: 
+      <div className="login-parent">
+        <div className="wrapper">
+          <img src={logo} alt="Utah Food Pantry"/>
+          <h2>Welcome! Please Log In.</h2>
           <form onSubmit={this.handleLoginSubmit}>
             <p>Username</p>
             <input type='submit text' autoFocus='true' onChange={this.handleUsernameInput} value={this.state.username}></input>
             <p>Password</p>
             <input type='password' onChange={this.handlePasswordInput} value={this.state.password}></input>
             <br />
-          <button>Submit</button>
+          <button className="login-submit-button">SUBMIT</button>
           </form>
         </div>
         <div>
