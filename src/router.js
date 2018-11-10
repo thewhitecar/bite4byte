@@ -9,14 +9,10 @@ import AddInventory from './components/addInventoryForm/addInventoryForm.js'
 export default (
 
     <Switch>
-         <Route component={Login} exact path="/"/>
+         <Route component={Login} exact path='/'/>
          <Route component={Dashboard} exact path='/home'/>
          <Route component={OrderForm} exact path='/order'/>
          <Route component={AddInventory} exact path='/add'/>
     </Switch>
 
-
   )
-
-
- 
