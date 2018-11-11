@@ -16,7 +16,7 @@ module.exports = {
                     let {id, quantity: existingQuantity} = dbRes[0]
                     quantity = +quantity
                     quantity += existingQuantity
-                    db.inventory.update_quantity_by_pantry_id({id, quantity: obj.newQuantity, itemId: obj.itemId}).then(dbRes2 => {
+                    db.inventory.update_quantity_by_pantry_id({id, quantity: quantity, itemId: itemId}).then(dbRes2 => {
                     res.status(200).send(dbRes2)
                     })
                 } else {
