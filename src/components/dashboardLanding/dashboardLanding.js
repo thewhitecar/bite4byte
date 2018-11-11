@@ -17,6 +17,10 @@ class Dashboard extends Component {
       if(!prevProps.user && this.props.user){this.props.getInventory(this.props.user.pantry_id)}
     }
 
+    componentDidMount(){
+        if(this.props.user){this.props.getInventory(this.props.user.pantry_id)}
+    }
+
     render() {
         let familyList;
         if(this.props.families)familyList = this.props.families.map(familyName => {
@@ -37,7 +41,6 @@ class Dashboard extends Component {
                 </div>
             )})}
 
-        // if(this.props.user){setTimeout(this.props.getInventory(this.props.user.pantry_id), 5000)}
 
 
         return (
