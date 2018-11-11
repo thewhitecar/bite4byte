@@ -8,12 +8,22 @@ module.exports = {
         }).catch(err => res.status(200).send(err)) 
     }, 
     createItems(req, res) {
-        // TODO: If time come back and make it that it checks if there is a link already to item table see if there is a link existing in the table that links item_inventory_link
         let db = req.app.get('db')
         let {itemId, quantity, pantryId, itemName} = req.query
         if(itemId) {
-            let returnObj = createItemInventoryLink(itemId, quantity, pantryId)
-            returnObj.status === 500 ? res.status(500).send(returnObj.err) : res.status(200).send(returnObj.dbRes)
+            db.inventory.check_existing({pantryId, itemId}).then( dbRes => {
+                if(dbRes.length) {
+                    let {id, quantity: existingQuantity} = dbRes[0]
+                    quantity = +quantity
+                    quantity += existingQuantity
+                    db.inventory.update_quantity_by_pantry_id({id, quantity: obj.newQuantity, itemId: obj.itemId}).then(dbRes2 => {
+                    res.status(200).send(dbRes2)
+                    })
+                } else {
+                    let returnObj = createItemInventoryLink(itemId, quantity, pantryId)
+                    returnObj.status === 500 ? res.status(500).send(returnObj.err) : res.status(200).send(returnObj.dbRes)
+                }
+            })
         } 
         else {
             db.inventory.create_item({itemName}).then(dbRes => {
@@ -56,11 +66,6 @@ module.exports = {
 
     },
     updatePantryInventory(req, res) {
-        //Look of incoming itemInventory object 
-        // {
-        //     itemInventoryId: value,
-        //     newQuantity: value
-        // }
         let db = req.app.get('db')
         let {itemInventoryLinks, familyId} = req.body
         let {pantryId} = req.params
